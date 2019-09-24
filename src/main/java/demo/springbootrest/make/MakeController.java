@@ -2,6 +2,7 @@ package demo.springbootrest.make;
 
 import com.google.common.base.Preconditions;
 import demo.springbootrest.core.RestPreconditions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +13,8 @@ import java.util.Optional;
 @RequestMapping("/makes")
 class MakeController {
 
-    private final MakeRepository repository;
-
-    MakeController(MakeRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private MakeRepository repository;
 
     @GetMapping
     Collection<Make> findAll() {
@@ -41,7 +39,7 @@ class MakeController {
     }
 
     @PutMapping(value = "{id}")
-    Make update(@PathVariable( "id" ) Long id, @RequestBody Make newMake) {
+    Make update(@PathVariable("id") Long id, @RequestBody Make newMake) {
         Preconditions.checkNotNull(newMake);
         return repository.findById(id)
                 .map(make -> {
