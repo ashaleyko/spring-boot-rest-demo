@@ -3,6 +3,7 @@ package demo.springbootrest
 import demo.springbootrest.make.Make
 import demo.springbootrest.make.MakeRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.MockMvc
@@ -12,6 +13,7 @@ import spock.lang.Specification
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureTestDatabase
 class MakeControllerTest extends Specification {
 
     @Autowired
