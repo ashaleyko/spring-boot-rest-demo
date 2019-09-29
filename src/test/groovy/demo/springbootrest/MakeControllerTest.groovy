@@ -20,20 +20,20 @@ class MakeControllerTest extends Specification {
     private MockMvc mvc
 
     @Autowired
-    private MakeRepository makeRepository = Mock()
+    private MakeRepository makeRepository
 
     def "should return 200 status for /makes"() {
         expect: "status is 200"
             mvc.perform(MockMvcRequestBuilders.get("/makes"))
-                    .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk())
     }
 
     def "should return 200 status when get by name request is sent"() {
-        given: "one make is added"
+        when: "one make is added"
             makeRepository.save(new Make("Toyota", "Japan", Date.parse("yyyy-MM-dd", "1937-08-28") as Date))
 
 
-        expect: "status is 200 when get by name request is sent"
+        then: "status is 200"
             mvc.perform(MockMvcRequestBuilders.get("/makes/name/Toyota"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("\$..name").value("Toyota"))
